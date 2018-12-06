@@ -29,17 +29,17 @@ int main() {
 		printf("\n Selecciona una opcion: ");
 		scanf("%i",&SeleccionPrincipal);
 		system("cls");
-		SeleccionHotel = 0;
-		if(SeleccionPrincipal == 1) {
+		SeleccionHotel = 0; // Regresamos a 0 la seleccion para que entre en el while siguiente
+		if(SeleccionPrincipal == 1) { //Empieza la administracion del  hotel
 			while(SeleccionHotel != 6) {
-				MenuAdministracionHotel();
+				MenuAdministracionHotel(); //Llama al menu del hotel
 				printf("\n Selecciona una opcion: ");
 				scanf("%i",&SeleccionHotel);
 				system("cls");
 
-				switch(SeleccionHotel) {
+				switch(SeleccionHotel) { // Metemos los datos introducidos en decisiones
 					case 1:
-						MenuHabitaciones();
+						MenuHabitaciones(); //Muestra los tipos de habitaciones
 						printf("\n Selecciona una opcion: ");
 						scanf("%i",&SeleccionHabitaciones);
 						printf("\n ¿Cuantas habitaciones desea rentar: ");
@@ -47,11 +47,10 @@ int main() {
 						printf("\n ¿Cuantos noches vas a hospedarte: ");
 						scanf("%i",&CantidadNoches);
 						precio = CalculoCliente(SeleccionHabitaciones,CantidadHabitaciones,CantidadNoches); //Llamamos a la logica de costos
-						AcumuladorHabitacion+=CantidadHabitaciones;
-						AcumuladorIngresos+=precio;
-						
-						
+						AcumuladorHabitacion+=CantidadHabitaciones; // Acumula segun las habitaciones del dia
+						AcumuladorIngresos+=precio; // Acumula los ingresos percibidos en el dia
 						system("cls");
+						// Muestra el resumen del cliente
 						printf("\n------------------------------------------\n");
 						printf("\n Resumen de compra:\n");
 						printf("\n Tipo de habitacion: %i\n",SeleccionHabitaciones);
@@ -62,12 +61,12 @@ int main() {
 						printf("\n Confirmar la compra (Ejem: Si/No):\n");
 						scanf("%s",&ConfirmaCompra);
 						system("cls");
-
+						//Confirmamos la compra del cliente
 						if(strcmp(ConfirmaCompra,"Si") == 0 || strcmp(ConfirmaCompra,"si") == 0 || strcmp(ConfirmaCompra,"SI") == 0 ) {
 							printf("\n Asignale las habitaciones al cliente\n");
-							MostrarHabitaciones();
+							MostrarHabitaciones(); //Muestra una lista de todas la habitaciones
 							printf("\n");
-							LlenarHabitacion();
+							LlenarHabitacion(); //Llena la habitacion que introduzcamos
 							system("cls");
 							
 						}
@@ -75,27 +74,24 @@ int main() {
 						break;
 
 					case 2:
-						VaciarHabitacion();
+						VaciarHabitacion(); // Este metodo vacia una habitacion especifica que nosotros tecleemos
 						break;
 
 					case 3:
-						VaciarHabitaciones();
+						VaciarHabitaciones(); // Este metodo vacia todas las habitaciones
 						printf("\n Las Habitaciones se vaciaron exitosamente\n");
 						break;
 					case 4:
 						printf("\n -- Listado de todas tus habitaciones ocupadas y vacias --\n");
-						MostrarHabitaciones();
+						MostrarHabitaciones(); //Muestra las habitaciones disponibles y ocupadas
 						break;
 						
 					case 5:
-						
+						// Mostramos el resumen de lo acumulado
 						printf("\n ---Resumen general--- \n\n");
 						printf(" El total de ingresos percibidos fueron: %i \n\n",AcumuladorHabitacion);
 						printf(" El total de las habitaciones fueron: %i \n",AcumuladorIngresos);
-						
 						break;
-
-						
       				}
 
 			}
@@ -141,8 +137,9 @@ void MenuHabitaciones() {
 
 //Funcion que calcula los precios de las habitaciones
 int CalculoCliente(int TipoHabit,int nHabit, int nNoches ) {
-	int precio;
+	int precio; //variable que retornamos
 
+	// Calculos dependiendo del tipo de habitacion
 	if(TipoHabit == 1) {
 		precio = (500 * nHabit * nNoches);
 
@@ -152,13 +149,12 @@ int CalculoCliente(int TipoHabit,int nHabit, int nNoches ) {
 		precio = (2500 * nHabit * nNoches);
 	}
 
-	return precio;
-
-
+	return precio; //Retornamos la variable con los datos
 }
 
 // Metodo que vacia completamente las habitaciones
 void VaciarHabitaciones() {
+	// Este for pone cada posicion de la matriz con ceros
 	for(i =  0; i<3; i++) {
 		for(j = 0; j< 5; j++) {
 			Habitaciones[i][j] = Vacio;
@@ -170,6 +166,7 @@ void VaciarHabitaciones() {
 //Metodo que imprime las habitaciones
 void MostrarHabitaciones() {
 	printf("\n");
+	//Este for recorre toda la matriz e imprime las habitaciones
 	for(i =  0; i<3; i++) {
 		for(j = 0; j< 5; j++) {
 			printf("Habitacion %i %i = %i ",i,j,Habitaciones[i][j]);
@@ -179,6 +176,7 @@ void MostrarHabitaciones() {
 }
 
 void LlenarHabitacion() {
+	//Este for llena las habitaciones con unos dependiendo del numero de habitaciones que el usuario elija
 	for(i = 0; i < CantidadHabitaciones; i++) {
 		printf("\nHabitacion(Ejem. 0 0): ");
 		scanf("%i %i",&Fila,&Columna);
@@ -186,8 +184,9 @@ void LlenarHabitacion() {
 	}
 }
 
+//Este metodo vacia especificamente una habitacion
 void VaciarHabitacion() {
-	char SalidaCheckout[3] = "Si";
+	char SalidaCheckout[3] = "Si"; //Iniciamos en si para que entre al while
 
 	while(strcmp(SalidaCheckout,"si") == 0 || strcmp(SalidaCheckout,"Si") == 0 || strcmp(SalidaCheckout,"SI") == 0) {
 		printf("\n Lista de habitaciones \n");
@@ -195,8 +194,8 @@ void VaciarHabitacion() {
 		printf("\n");
 		fflush(stdin);
 		printf("¿Que habitacion deseas vaciar?(Ejem. 0 0 ): \n");
-		scanf("%i %i",&Fila,&Columna);
-		Habitaciones[Fila][Columna] = Vacio;
+		scanf("%i %i",&Fila,&Columna); // Guardamos la habitacion con fila y columna
+		Habitaciones[Fila][Columna] = Vacio; // Le colocamos el valor de vacio
 		system("cls");
 		printf("\n Se ha desocupado la habitacion [%i][%i] exitosamente\n",Fila,Columna);
 		printf("¿Deseas desocupar otra habitacion?: ");
