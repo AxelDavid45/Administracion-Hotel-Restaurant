@@ -21,6 +21,7 @@ int CantidadNoches,CantidadHabitaciones,precio,Salida;
 int Ocupado = 1, Vacio = 0;
 char ConfirmaCompra[3];
 int Habitaciones[3][5],Fila,Columna;
+int AcumuladorHabitacion=0,AcumuladorIngresos=0;
 
 int main() {
 	do {
@@ -46,6 +47,10 @@ int main() {
 						printf("\n ¿Cuantos noches vas a hospedarte: ");
 						scanf("%i",&CantidadNoches);
 						precio = CalculoCliente(SeleccionHabitaciones,CantidadHabitaciones,CantidadNoches); //Llamamos a la logica de costos
+						AcumuladorHabitacion+=CantidadHabitaciones;
+						AcumuladorIngresos+=precio;
+						
+						
 						system("cls");
 						printf("\n------------------------------------------\n");
 						printf("\n Resumen de compra:\n");
@@ -76,13 +81,22 @@ int main() {
 					case 3:
 						VaciarHabitaciones();
 						printf("\n Las Habitaciones se vaciaron exitosamente\n");
-						MostrarHabitaciones();
 						break;
 					case 4:
 						printf("\n -- Listado de todas tus habitaciones ocupadas y vacias --\n");
 						MostrarHabitaciones();
 						break;
-				}
+						
+					case 5:
+						
+						printf("\n ---Resumen general--- \n\n");
+						printf(" El total de ingresos percibidos fueron: %i \n\n",AcumuladorHabitacion);
+						printf(" El total de las habitaciones fueron: %i \n",AcumuladorIngresos);
+						
+						break;
+
+						
+      				}
 
 			}
 			SeleccionPrincipal = 0;
@@ -150,15 +164,17 @@ void VaciarHabitaciones() {
 			Habitaciones[i][j] = Vacio;
 		}
 	}
+	system("cls");
 }
 
 //Metodo que imprime las habitaciones
 void MostrarHabitaciones() {
+	printf("\n");
 	for(i =  0; i<3; i++) {
 		for(j = 0; j< 5; j++) {
 			printf("Habitacion %i %i = %i ",i,j,Habitaciones[i][j]);
 		}
-		printf("\n");
+		printf("\n\n\n");
 	}
 }
 
@@ -181,6 +197,7 @@ void VaciarHabitacion() {
 		printf("¿Que habitacion deseas vaciar?(Ejem. 0 0 ): \n");
 		scanf("%i %i",&Fila,&Columna);
 		Habitaciones[Fila][Columna] = Vacio;
+		system("cls");
 		printf("\n Se ha desocupado la habitacion [%i][%i] exitosamente\n",Fila,Columna);
 		printf("¿Deseas desocupar otra habitacion?: ");
 		scanf("%s",&SalidaCheckout);
