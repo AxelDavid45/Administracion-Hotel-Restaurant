@@ -68,7 +68,7 @@ int main() {
 							printf("\n");
 							LlenarHabitacion(); //Llena la habitacion que introduzcamos
 							system("cls");
-							
+
 						}
 
 						break;
@@ -85,14 +85,14 @@ int main() {
 						printf("\n -- Listado de todas tus habitaciones ocupadas y vacias --\n");
 						MostrarHabitaciones(); //Muestra las habitaciones disponibles y ocupadas
 						break;
-						
+
 					case 5:
 						// Mostramos el resumen de lo acumulado
 						printf("\n ---Resumen general--- \n\n");
 						printf(" El total de ingresos percibidos fueron: %i \n\n",AcumuladorHabitacion);
 						printf(" El total de las habitaciones fueron: %i \n",AcumuladorIngresos);
 						break;
-      				}
+				}
 
 			}
 			SeleccionPrincipal = 0;
@@ -180,7 +180,13 @@ void LlenarHabitacion() {
 	for(i = 0; i < CantidadHabitaciones; i++) {
 		printf("\nHabitacion(Ejem. 0 0): ");
 		scanf("%i %i",&Fila,&Columna);
-		Habitaciones[Fila][Columna] = Ocupado;
+		if (Habitaciones[Fila][Columna] == Ocupado) { //Este if hace que las habitaciones no se repitan
+			printf(" Habitacion ocupada, elige otra \n");
+			LlenarHabitacion();//Se llama de nuevo a la funcion para que vuelva a repetir el proceso
+
+		} else {// Si no se repite lo guarda
+			Habitaciones[Fila][Columna] = Ocupado;
+		}
 	}
 }
 
