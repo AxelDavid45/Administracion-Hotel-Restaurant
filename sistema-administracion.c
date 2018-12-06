@@ -8,23 +8,36 @@ void MenuPrincipal();
 void MenuAdministracionHotel();
 void MenuHabitaciones();
 int CalculoCliente(int TipoHabit,int nHabit, int nNoches );
+void VaciarHabitaciones();
+void MostrarHabitaciones();
+void LlenarHabitacion();
+void VaciarHabitacion();
+
 
 //Variables
+int i,j;
 int SeleccionPrincipal,SeleccionHotel,SeleccionHabitaciones;
 int CantidadNoches,CantidadHabitaciones,precio,Salida;
-char ConfirmaCompra;
+char SalidaCheckout[3] = "Si";
+int Ocupado = 1, Vacio = 0;
+char ConfirmaCompra[3];
+int Habitaciones[3][5],Fila,Columna;
 
 int main() {
 	do {
+		printf("%i",SeleccionPrincipal);
 		MenuPrincipal(); //Manda a llamar al menu
 		printf("\n Selecciona una opcion: ");
 		scanf("%i",&SeleccionPrincipal);
+		system("cls");
 
 		if(SeleccionPrincipal == 1) {
-			while(SeleccionHotel != 5) {
+			SeleccionHotel = 0;
+			while(SeleccionHotel != 6) {
 				MenuAdministracionHotel();
 				printf("\n Selecciona una opcion: ");
 				scanf("%i",&SeleccionHotel);
+				system("cls");
 
 				switch(SeleccionHotel) {
 					case 1:
@@ -36,6 +49,7 @@ int main() {
 						printf("\n ¿Cuantos noches vas a hospedarte: ");
 						scanf("%i",&CantidadNoches);
 						precio = CalculoCliente(SeleccionHabitaciones,CantidadHabitaciones,CantidadNoches); //Llamamos a la logica de costos
+						system("cls");
 						printf("\n------------------------------------------\n");
 						printf("\n Resumen de compra:\n");
 						printf("\n Tipo de habitacion: %i\n",SeleccionHabitaciones);
@@ -43,14 +57,39 @@ int main() {
 						printf("\n Cantidad de noches a hospedar: %i\n",CantidadNoches);
 						printf("\n Tu total es por: %i\n",precio);
 						printf("\n---------------------------------------------\n");
-						printf("\n Confirmar la compra:\n");
+						printf("\n Confirmar la compra (Ejem: Si/No):\n");
 						scanf("%s",&ConfirmaCompra);
-					break;
+						system("cls");
+
+						if(strcmp(ConfirmaCompra,"Si") == 0 || strcmp(ConfirmaCompra,"si") == 0 || strcmp(ConfirmaCompra,"SI") == 0 ) {
+							printf("\n Asignale las habitaciones al cliente\n");
+							MostrarHabitaciones();
+							printf("\n");
+							LlenarHabitacion();
+							system("cls");
+							printf("\nTus habitaciones se marcaron con el numero 1\n");
+							MostrarHabitaciones();
+						}
+
+						break;
+
+					case 2:
+						VaciarHabitacion();
+						break;
+
+					case 3:
+						VaciarHabitaciones();
+						printf("\n Las Habitaciones se vaciaron exitosamente\n");
+						MostrarHabitaciones();
+						break;
+					case 4:
+						printf("\n -- Listado de todas tus habitaciones ocupadas y vacias --\n");
+						MostrarHabitaciones();
+						break;
 				}
-				
+
 			}
-
-
+			SeleccionPrincipal = 0;
 		}
 
 	} while(SeleccionPrincipal != 3);
@@ -73,12 +112,13 @@ void MenuPrincipal() {
 
 //Metodo que muestra el menu del hotel
 void MenuAdministracionHotel() {
-	printf("\n --- Bienvenido al Sistema de Hoteleria ---\n");
+	printf("\n --- Bienvenido al Sistema de Hoteles ---\n");
 	printf(" 1. Registro de clientes.\n");
 	printf(" 2. Checkout del cliente.\n");
-	printf(" 3. Mostrar todas las habitaciones.\n");
-	printf(" 4. Corte del dia\n");
-	printf(" 5. Regresar al menu principal\n");
+	printf(" 3. Vaciar todas las habitaciones.\n");
+	printf(" 4. Mostrar todas las habitaciones.\n");
+	printf(" 5. Corte del dia\n");
+	printf(" 6. Regresar al menu principal\n");
 }
 
 //Metodo que muestra el menu de las habitaciones
@@ -107,3 +147,49 @@ int CalculoCliente(int TipoHabit,int nHabit, int nNoches ) {
 
 }
 
+// Metodo que vacia completamente las habitaciones
+void VaciarHabitaciones() {
+	for(i =  0; i<3; i++) {
+		for(j = 0; j< 5; j++) {
+			Habitaciones[i][j] = Vacio;
+		}
+	}
+}
+
+//Metodo que imprime las habitaciones
+void MostrarHabitaciones() {
+	for(i =  0; i<3; i++) {
+		for(j = 0; j< 5; j++) {
+			printf("[%i][%i] = %i ",i,j,Habitaciones[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+void LlenarHabitacion() {
+	for(i = 0; i < CantidadHabitaciones; i++) {
+		printf("\nHabitacion(Ejem. 0 0): ");
+		scanf("%i %i",&Fila,&Columna);
+		Habitaciones[Fila][Columna] = Ocupado;
+	}
+}
+
+void VaciarHabitacion() {
+
+
+	while(strcmp(SalidaCheckout,"si") == 0 || strcmp(SalidaCheckout,"Si") == 0 || strcmp(SalidaCheckout,"SI") == 0) {
+		printf("\n Lista de habitaciones \n");
+		MostrarHabitaciones();
+		printf("\n");
+		fflush(stdin);
+		printf("¿Que habitacion deseas vaciar?(Ejem. 0 0 ): \n");
+		scanf("%i %i",&Fila,&Columna);
+		Habitaciones[Fila][Columna] = Vacio;
+		printf("\n Se ha desocupado la habitacion [%i][%i] exitosamente\n",Fila,Columna);
+		printf("¿Deseas desocupar otra habitacion?: ");
+		scanf("%s",&SalidaCheckout);
+		system("cls");
+	}
+	system("cls");
+
+}
