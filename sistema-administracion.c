@@ -18,21 +18,18 @@ void VaciarHabitacion();
 int i,j;
 int SeleccionPrincipal,SeleccionHotel,SeleccionHabitaciones;
 int CantidadNoches,CantidadHabitaciones,precio,Salida;
-char SalidaCheckout[3] = "Si";
 int Ocupado = 1, Vacio = 0;
 char ConfirmaCompra[3];
 int Habitaciones[3][5],Fila,Columna;
 
 int main() {
 	do {
-		printf("%i",SeleccionPrincipal);
 		MenuPrincipal(); //Manda a llamar al menu
 		printf("\n Selecciona una opcion: ");
 		scanf("%i",&SeleccionPrincipal);
 		system("cls");
-
+		SeleccionHotel = 0;
 		if(SeleccionPrincipal == 1) {
-			SeleccionHotel = 0;
 			while(SeleccionHotel != 6) {
 				MenuAdministracionHotel();
 				printf("\n Selecciona una opcion: ");
@@ -67,8 +64,7 @@ int main() {
 							printf("\n");
 							LlenarHabitacion();
 							system("cls");
-							printf("\nTus habitaciones se marcaron con el numero 1\n");
-							MostrarHabitaciones();
+							
 						}
 
 						break;
@@ -160,7 +156,7 @@ void VaciarHabitaciones() {
 void MostrarHabitaciones() {
 	for(i =  0; i<3; i++) {
 		for(j = 0; j< 5; j++) {
-			printf("[%i][%i] = %i ",i,j,Habitaciones[i][j]);
+			printf("Habitacion %i %i = %i ",i,j,Habitaciones[i][j]);
 		}
 		printf("\n");
 	}
@@ -175,7 +171,7 @@ void LlenarHabitacion() {
 }
 
 void VaciarHabitacion() {
-
+	char SalidaCheckout[3] = "Si";
 
 	while(strcmp(SalidaCheckout,"si") == 0 || strcmp(SalidaCheckout,"Si") == 0 || strcmp(SalidaCheckout,"SI") == 0) {
 		printf("\n Lista de habitaciones \n");
