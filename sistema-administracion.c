@@ -3,7 +3,27 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Prototipos de funcion
+//Structs restaurant
+struct desayunos {
+	char nombre[40];
+};
+struct comidas {
+	char nombre[50];
+};
+struct postres{
+	char nombre[40];
+};
+struct aguas {
+	char nombre[40];
+};
+struct rest{
+	struct desayunos desayunos;
+	struct comidas comidas;
+	struct postres postres;
+	struct aguas aguas;
+};
+
+//Prototipos de hotel
 void MenuPrincipal();
 void MenuAdministracionHotel();
 void MenuHabitaciones();
@@ -13,9 +33,24 @@ void MostrarHabitaciones();
 void LlenarHabitacion();
 void VaciarHabitacion();
 
+//Prototipos de restaurant
+void MenuRestaurantPrincipal();
+void MostrarDesayunos();
+void MostrarBebidas();
+void MostrarPostres();
+void MostrarComidas();
+void LlenarArregloInformaacion();
+int CalculoPagoCliente(int CantidadPlatillos, int Precio);
 
-//Variables
+//Variables restaurant
+int tot=0, nPlatillos,nComidas,nPostres,nVasos,elec,ganan,SelecPrincipalRestaurant;
+char fin;
+struct rest restaurante [10];
+
+//Variables globales
 int i,j;
+
+//Variables hotel
 int SeleccionPrincipal,SeleccionHotel,SeleccionHabitaciones;
 int CantidadNoches,CantidadHabitaciones,precio,Salida;
 int Ocupado = 1, Vacio = 0;
