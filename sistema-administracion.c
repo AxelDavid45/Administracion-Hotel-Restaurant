@@ -97,6 +97,14 @@ int main() {
 			}
 			SeleccionPrincipal = 0;
 		}
+		//Restaurant
+		if(SeleccionPrincipal == 2) {
+			while(SeleccionRestaurant != 6) {
+				
+			}
+			
+			SeleccionPrincipal = 0;
+		}
 
 	} while(SeleccionPrincipal != 3);
 
