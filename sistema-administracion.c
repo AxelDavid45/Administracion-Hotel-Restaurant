@@ -628,3 +628,14 @@ int CalculoPagoCliente(int CantidadPlatillos, int Precio) { //Calcula el pago de
     return resultado;
 }
 //Fin metodos restaurant
+
+/*
+  PROYECTO REALIZADO POR:
+  LUIS HEBERTO AGUILAR RUIZ
+  CULEBRO MATUZ CARLOS MARIO
+  AXEL DAVID ESPINOSA MENESES
+  MARCO ANTONIO JIMENEZ MORALES
+  INGRID AKETZALLY LOPEZ SARMIENTO
+  VICTOR MUÑOZ RODA
+
+*/
